@@ -19,7 +19,7 @@ router.post('/insert', function(req, res, next)
 	const placeholders = 
 	[ req.album_id, req.album_name,	req.aid,];
 	const query = 
-	"INSERT INTO workouts (`album_id`, `album_name`, `aid`)" 
+	"INSERT INTO workouts (`album_id`, `album_name`, `aid`)
 	VALUES (?, ?, ?)";	
 	mysql.pool.query(query, placeholders, (err, result) => 
 	{
