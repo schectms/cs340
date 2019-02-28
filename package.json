@@ -11,8 +11,17 @@
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.2",
-    "express-handlebars": "^2.0.1",
+    "express-handlebars": "^3.0.2",
     "express-session": "^1.11.3",
-    "mysql": "^2.8.0"
-  }
+    "mysql": "^2.16.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schectms/cs340.git"
+  },
+  "bugs": {
+    "url": "https://github.com/schectms/cs340/issues"
+  },
+  "homepage": "https://github.com/schectms/cs340#readme"
 }
