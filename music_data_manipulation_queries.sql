@@ -92,6 +92,9 @@ INSERT INTO song(song_name, aid, album_id VALUES(:song_from_input, :artist_id_fr
 -- add song to artist
 INSERT INTO song (song_name, aid) VALUES (:song_name_from_input, :aid_from_page)
 
+-- add new artist
+INSERT INTO artist (artist_name, artist_genre, artist_bio) VALUES (:name_from_input, :genre_from_input, :bio_from_input)
+
 
 --UPDATES
 
