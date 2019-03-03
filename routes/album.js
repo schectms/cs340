@@ -23,7 +23,7 @@ module.exports = function(){
         var mysql = req.app.get('mysql');
         getAlbumsByArtist(req, res, mysql, context, complete);
         function complete(){
-            res.render('artists', context);
+            res.render('albums', context);
 
         }
     });
