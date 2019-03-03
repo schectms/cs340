@@ -3,13 +3,15 @@
     handlebars for HTML templates  
 */
 
+
 var express = require('express');
 var mysql = require('./dbcon.js');
 var bodyParser = require('body-parser');
+var path = require('path');
 
 var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
-
+app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', handlebars.engine);
 app.use(bodyParser.urlencoded({extended:true}));
 app.use('/static', express.static('public'));
@@ -22,7 +24,8 @@ app.use('/users', require('./routes/user.js'));
 app.use('/artists', require('./routes/artist.js'));
 app.use('/playlists', require('./routes/playlist.js'));
 app.use('/songs', require('./routes/song.js'));
-app.use('/', express.static('public'));
+app.use('/', require('./routes/home.js'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req,res){
   res.status(404);
