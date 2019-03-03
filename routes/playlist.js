@@ -3,7 +3,7 @@ module.exports = function(){
     var router = express.Router();
 
     function getPlaylists(res, mysql, context, complete){
-        mysql.pool.query("SELECT playlist.name, user.user_name, playlist.playlist_id FROM playlist INNER JOIN user ON user.user_id = playlist.uid", function(error, results, fields){
+        mysql.pool.query("SELECT playlist.playlist_name, user.user_name, playlist.playlist_id FROM playlist INNER JOIN user ON user.user_id = playlist.uid", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -14,7 +14,7 @@ module.exports = function(){
     }
 
     function getUsersPlaylists(res, mysql, context, id, complete){
-        var sql = "SELECT playlist.name, user.user_name, user.user_id FROM playlist INNER JOIN user ON user.user_id = playlist.uid WHERE user.user_id = ?";
+        var sql = "SELECT playlist.playlist_name, user.user_name, user.user_id FROM playlist INNER JOIN user ON user.user_id = playlist.uid WHERE user.user_id = ?";
         var inserts = [user_id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
