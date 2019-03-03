@@ -1,82 +1,33 @@
-<!DOCTYPE html>
 <html>
-<head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+{{#each foo}}
+{{this}}
+{{/each}}
+<h3> SONGS:</h3>
+<form id="addsong" action="/song" method="post">
+    Song name: <input type="text" name="song_name"><br>
+    Artist: <input type="text" name="artist"><br>
+    Album: <input type="text" name="album"><br>
+    <input type="submit" value="Submit">
+ </form>
+<br/>
 
-	<title>View songs by *[Artist], [Album], [Playlist]*</title>
-</head>
-<body>
-	<div class="container">
-		<h1>View songs by *[Artist], [Album], [Playlist]*</h1>
-
-		<div class="container">
-			<ul class="list-group">
-			  <li class="list-group-item">
-			  	Song Title 1
-			  	<div class="mt-1">
-				  	<div class="btn-group float-right">
-						<button type="button" class="btn btn-info btn-sm">
-						  	Edit song
-						</button>
-						<button type="button" class="btn btn-danger btn-sm">
-						  	Delete song from *[Artist], [Album], [Playlist]*
-						</button>
-					</div>
-				</div>
-			  </li>
-
-			  <li class="list-group-item">
-			  	Song Title 2
-			  	<div class="mt-1">
-				  	<div class="btn-group float-right">
-						<button type="button" class="btn btn-info btn-sm">
-						  	Edit song
-						</button>
-						<button type="button" class="btn btn-danger btn-sm">
-						  	Delete song from *[Artist], [Album], [Playlist]*
-						</button>
-					</div>
-				</div>
-			  </li>
-
-			  <li class="list-group-item">
-			  	Song Title 3
-			  	<div class="mt-1">
-				  	<div class="btn-group float-right">
-						<button type="button" class="btn btn-info btn-sm">
-						  	Edit song
-						</button>
-						<button type="button" class="btn btn-danger btn-sm">
-						  	Delete song from*[Artist], [Album], [Playlist]*
-						</button>
-					</div>
-				</div>
-			  </li>
-
-		
-		<div class="container mt-5">
-			<form>
-				<h3>Add song to *[Artist], [Album], [Playlist]*</h3>
-			  	<div class="form-group">
-				    <label for="exampleFormControlSelect1">Artist</label>
-				    <select class="form-control" id="exampleFormControlSelect1">
-				      <option>Artist 1</option>
-				      <option>Artist 2</option>
-				      <option>Artist 3</option>
-				      <option>Artist 4</option>
-				      <option>Artist 5</option>
-				    </select>
-				  </div>
-			      <input type="text" class="form-control" placeholder="Song name">
-			    <button class="btn btn-primary" type="submit">Submit</button>
-			  </div>
-			</form>
-		</div>
-	</div>
-
-
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-</body>
+<h3>Current Songs:</h3>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Artist</th>
+        <th>Album</th>
+    </thead>
+    <tbody>
+        {{#each song}}
+        <tr>
+            <td>{{song_name}}</td>
+            <td>{{artist}}</td>
+            <td>{{album}}</td>
+            <td><button onclick="deleteartist({{id}})">Delete</button></td>
+            <td><a href="/song/{{id}}">Update</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
 </html>
