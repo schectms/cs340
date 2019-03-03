@@ -2,9 +2,9 @@ module.exports = function(){
     var express = require('express');
     var router = express.Router();
 
-    function getAlbumsByArtist(res, mysql, context, id, complete){
+    function getAlbumsByArtist(req, res, mysql, context, complete){
         var sql = "SELECT album.album_name, artist.artist_name, album.album_id FROM album INNER JOIN artist ON artist.artist_id = album.aid WHERE album.aid = ?";
-        var inserts = [artist_id];
+        var inserts = ["3"]; // needs to be artist_id from the req
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
@@ -21,12 +21,9 @@ module.exports = function(){
         var callbackCount = 0;
         var context = {};
         var mysql = req.app.get('mysql');
-        getAlbumsByArtist(res, mysql, context, complete);
+        getAlbumsByArtist(req, res, mysql, context, complete);
         function complete(){
-            callbackCount++;
-            if(callbackCount >= 2){
-                res.render('artists', context);
-            }
+            res.render('artists', context);
 
         }
     });

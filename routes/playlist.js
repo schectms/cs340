@@ -2,7 +2,7 @@ module.exports = function(){
     var express = require('express');
     var router = express.Router();
 
-    function getPlaylists(res, mysql, context, complete){
+    function getPlaylists(req, res, mysql, context, complete){
         mysql.pool.query("SELECT playlist.playlist_name, user.user_name, playlist.playlist_id FROM playlist INNER JOIN user ON user.user_id = playlist.uid", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
@@ -13,9 +13,9 @@ module.exports = function(){
         });
     }
 
-    function getUsersPlaylists(res, mysql, context, id, complete){
+    function getUsersPlaylists(req, res, mysql, context, complete){
         var sql = "SELECT playlist.playlist_name, user.user_name, user.user_id FROM playlist INNER JOIN user ON user.user_id = playlist.uid WHERE user.user_id = ?";
-        var inserts = [user_id];
+        var inserts = ["3"]; // this needs to be the user id from the req
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
@@ -32,13 +32,9 @@ module.exports = function(){
         var callbackCount = 0;
         var context = {};
         var mysql = req.app.get('mysql');
-        getPlaylists(res, mysql, context, complete);
+        getPlaylists(req, res, mysql, context, complete);
         function complete(){
-            callbackCount++;
-            if(callbackCount >= 2){
-                res.render('artists', context);
-            }
-
+            res.render('playlists', context);
         }
     });
 

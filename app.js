@@ -19,7 +19,7 @@ app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]);
 app.set('mysql', mysql);
 
-app.use('/users', require('./routes/album.js'));
+app.use('/albums', require('./routes/album.js'));
 app.use('/users', require('./routes/user.js'));
 app.use('/artists', require('./routes/artist.js'));
 app.use('/playlists', require('./routes/playlist.js'));

@@ -2,9 +2,9 @@ module.exports = function(){
     var express = require('express');
     var router = express.Router();
 
-    function getSongsByPlaylist(res, mysql, context, id, complete){
+    function getSongsByPlaylist(req, res, mysql, context, complete){
         var sql = "SELECT song.song_name, artist.artist_name, playlist.playlist_name FROM song_playlist INNER JOIN song ON song_playlist.sid = song.song_id INNER JOIN artist ON song.aid = artist.artist_id INNER JOIN playlist ON song_playlist.id = playlist.playlist_id  WHERE song_playlist.pid = ?";
-        var inserts = [playlist_id];
+        var inserts = ["3"]; // this needs to be the playlist id from the req
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
@@ -15,9 +15,9 @@ module.exports = function(){
         });
     }
 
-    function getSongsByAlbum(res, mysql, context, id, complete){
+    function getSongsByAlbum(req, res, mysql, context, complete){
         var sql = "SELECT song.song_name, artist.artist_name, album.album_name FROM song INNER JOIN artist ON artist.artist_id = song.aid INNER JOIN album ON artist_id = album.aid WHERE album.album_id = ?";
-        var inserts = [album_id];
+        var inserts = ["3"]; // this needs to be the album id from the req
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
@@ -28,9 +28,9 @@ module.exports = function(){
         });
     }
 
-    function getSongsByArtist(res, mysql, context, id, complete){
+    function getSongsByArtist(req, res, mysql, context, complete){
         var sql = "SELECT song.song_name, artist.artist_name FROM song INNER JOIN artist ON artist.artist_id = song.aid WHERE song.aid = ?";
-        var inserts = [artist_id];
+        var inserts = ["3"]; // this needs to be the artist id from the req
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
@@ -49,20 +49,16 @@ module.exports = function(){
         var mysql = req.app.get('mysql');
         var filter_type = req.body.type;
         if ( filter_type = "artist"){
-            getSongsByArtist(res, mysql, context, complete);
+            getSongsByArtist(req, res, mysql, context, complete);
         }
         else if (filter_type = "album"){
-            getSongsByAlbum(res, mysql, context, complete);
+            getSongsByAlbum(req, res, mysql, context, complete);
         }
         else if (filter_type = "playlist"){
-            getSongsByPlaylist(res, mysql, context, complete);
+            getSongsByPlaylist(req, res, mysql, context, complete);
         }
         function complete(){
-            callbackCount++;
-            if(callbackCount >= 2){
-                res.render('songs', context);
-            }
-
+            res.render('songs', context);
         }
     });
 

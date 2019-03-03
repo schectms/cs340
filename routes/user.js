@@ -2,8 +2,9 @@ module.exports = function(){
     var express = require('express');
     var router = express.Router();
 
-    function getUsers(res, mysql, context, complete){
-        mysql.pool.query("SELECT user.user_name, song.song_name, artist.artist_name FROM user INNER JOIN song ON user.sid = song.song_id INNER JOIN artist ON song.aid = artist.artist_id", function(error, results, fields){
+    function getUsers(req, res, mysql, context, complete){
+        var sql = "SELECT user.user_name, song.song_name, artist.artist_name FROM user INNER JOIN song ON user.sid = song.song_id INNER JOIN artist ON song.aid = artist.artist_id"
+        mysql.pool.query(sql, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -13,7 +14,7 @@ module.exports = function(){
         });
     }
 
-    function getUsersForDropDown(res, mysql, context, id, complete){
+    function getUsersForDropDown(req, res, mysql, context, complete){
         var sql = "SELECT user.user_name, user.user_id FROM user";
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
@@ -28,16 +29,11 @@ module.exports = function(){
      /* READ - Display all users*/
 
      router.get('/', function(req, res){
-        var callbackCount = 0;
         var context = {};
         var mysql = req.app.get('mysql');
-        getUsers(res, mysql, context, complete);
+        getUsers(req, res, mysql, context, complete);
         function complete(){
-            callbackCount++;
-            if(callbackCount >= 2){
-                res.render('artists', context);
-            }
-
+            res.render('users', context);
         }
     });
 
@@ -46,7 +42,6 @@ module.exports = function(){
     /* CREATE Adds a user */
 
     router.post('/', function(req, res){
-        console.log(req.body.homeworld)
         console.log(req.body)
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO user (user_name, sid) VALUES (?, ?)";
