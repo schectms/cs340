@@ -11,12 +11,28 @@ var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 
 app.engine('hbs', handlebars.engine);
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({extended:false}));
+pp.use(bodyParser.json());
 app.use('/static', express.static('public'));
 app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]);
 app.set('mysql', mysql);
-app.use('/albums', require('./routes/album.js'));
+
+var viewTable = function(res, table) {
+  var ctx = {};
+  pool.query('SELECT * FROM ' + table, function(err, rows, fields) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    ctx.results = rows;
+    res.send(ctx);
+  });
+};
+
+app.get('/albums', function(req, res) {
+  selectTableData(res, 'album');
+});
 app.use('/users', require('./routes/user.js'));
 app.use('/artists', require('./routes/artist.js'));
 app.use('/playlists', require('./routes/playlist.js'));
