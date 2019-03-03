@@ -2,33 +2,30 @@
 {{#each foo}}
 {{this}}
 {{/each}}
-<h3>Add new album:</h3>
-<form id="addalbum" action="/album" method="post">
-    Album Name: <input type="text" name="album_name><br>
-    Artist: <select name="artist"> 
-        {{#each artist}}
-        <option value="{{id}}">{{name}}</option>
-        {{/each}}
-    </select><br>
+<h3> ALBUMS:</h3>
+<form id="addalbum" action="/artist" method="post">
+    Album name: <input type="text" name="album_name"><br>
+    Genre: <input type="text" name="genre"><br>
+    Bio: <input type="text" name="bio"><br>
+    <input type="submit" value="Submit">
  </form>
 <br/>
 
-
 <h3>Current Albums:</h3>
 <table>
-    <thead> 
-        <th>Name/th> 
-        <th>Artist</th> 
-    </thead> 
+    <thead>
+        <th>Name</th>
+        <th>Artist</th>
+    </thead>
     <tbody>
-        {{#each album}} 
-        <tr> 
-            <td>{{name}}</td> 
-            <td>{{artist}}</td> 
-            <td><button onclick="deleteAlbum({{id}})">Delete</button></td>
+        {{#each album}}
+        <tr>
+            <td>{{album_name}}</td>
+            <td>{{artist}}</td>
+            <td><button onclick="deleteartist({{id}})">Delete</button></td>
             <td><a href="/album/{{id}}">Update</a></td>
-        </tr> 
-        {{/each}} 
-    </tbody> 
-</table> 
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
 </html>
