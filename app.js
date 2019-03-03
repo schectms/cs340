@@ -18,21 +18,7 @@ app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]);
 app.set('mysql', mysql);
 
-var viewTable = function(res, table) {
-  var ctx = {};
-  pool.query('SELECT * FROM ' + table, function(err, rows, fields) {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    ctx.results = rows;
-    res.send(ctx);
-  });
-};
-
-app.get('/albums', function(req, res) {
-  selectTableData(res, 'album');
-});
+app.use('/users', require('./routes/album.js'));
 app.use('/users', require('./routes/user.js'));
 app.use('/artists', require('./routes/artist.js'));
 app.use('/playlists', require('./routes/playlist.js'));
