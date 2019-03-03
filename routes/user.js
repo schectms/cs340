@@ -3,7 +3,7 @@ module.exports = function(){
     var router = express.Router();
 
     function getUsers(res, mysql, context, complete){
-        mysql.pool.query("SELECT user.user_name, song.song_name, artist.name FROM user INNER JOIN song ON user.sid = song.song_id INNER JOIN artist ON song.aid = artist.artist_id", function(error, results, fields){
+        mysql.pool.query("SELECT user.user_name, song.song_name, artist.artist_name FROM user INNER JOIN song ON user.sid = song.song_id INNER JOIN artist ON song.aid = artist.artist_id", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();

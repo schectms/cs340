@@ -21,7 +21,7 @@ module.exports = function(){
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.person = results[0];
+            context.playlists = results;
             complete();
         });
     }
@@ -42,7 +42,7 @@ module.exports = function(){
         }
     });
 
-    /* CREATE - Adds an artist */
+    /* CREATE - Adds a playlist */
 
     router.post('/', function(req, res){
         var mysql = req.app.get('mysql');

@@ -1,35 +1,54 @@
-const express = require('express');
-const mysql = require('./../dbcon.js');
-const moment = require('moment');
-const router = express.Router();
+module.exports = function(){
+    var express = require('express');
+    var router = express.Router();
 
-//returns table in JSON format 
-router.get('/', (req, res, next) =>
-{
-    mysql.pool.query('SELECT album_name AS name FROM album', (err, rows, fields) => 
-	  {
-	      if (err)
-        return next(err);
-        res.json(rows)
+    function getAlbumsByArtist(res, mysql, context, id, complete){
+        var sql = "SELECT album.album_name, artist.artist_name, album.album_id FROM album INNER JOIN artist ON artist.artist_id = album.aid WHERE album.aid = ?";
+        var inserts = [artist_id];
+        mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.albums = results;
+            complete();
+        });
+    }
+    
+    /* READ - Display all artist albums*/
+
+    router.get('/', function(req, res){
+        var callbackCount = 0;
+        var context = {};
+        var mysql = req.app.get('mysql');
+        getAlbumsByArtist(res, mysql, context, complete);
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 2){
+                res.render('artists', context);
+            }
+
+        }
     });
-});
 
-router.post('/insert', function(req, res, next)
-{
-	const placeholders = 
-	[ req.album_id, req.album_name,	req.aid,];
-	const query = 
-	"INSERT INTO workouts (`album_id`, `album_name`, `aid`)
-	VALUES (?, ?, ?)";	
-	mysql.pool.query(query, placeholders, (err, result) => 
-	{
-		if (err)
-		return next(err);
-		req.body.id = result.insertId;
-		res.json(req.body);
+    /* CREATE - Adds an album */
 
-	});
+    router.post('/', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "INSERT INTO album (album_name, aid) VALUES(?, ?)";
+        var inserts = [req.body.album.name, req.body.artist.artist_id];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(JSON.stringify(error))
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.redirect('/albums');
+            }
+        });
+    });
 
-});
+    return router;
+}();
 
 
