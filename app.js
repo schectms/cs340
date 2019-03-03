@@ -11,8 +11,7 @@ var app = express();
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 
 app.engine('hbs', handlebars.engine);
-app.use(bodyParser.urlencoded({extended:false}));
-pp.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
 app.use('/static', express.static('public'));
 app.set('view engine', 'handlebars');
 app.set('port', process.argv[2]);
