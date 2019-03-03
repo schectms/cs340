@@ -1,4 +1,8 @@
-<h3> artist:</h3>
+<html>
+{{#each foo}}
+{{this}}
+{{/each}}
+<h3> ARTISTS:</h3>
 <form id="addartist" action="/artist" method="post">
     Artist name: <input type="text" name="artist_name"><br>
     Genre: <input type="text" name="genre"><br>
@@ -7,7 +11,7 @@
  </form>
 <br/>
 
-<h3>Current people:</h3>
+<h3>Current Artists:</h3>
 <table>
     <thead>
         <th>Name</th>
