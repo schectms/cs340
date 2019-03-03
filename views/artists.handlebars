@@ -1,103 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<h3> artist:</h3>
+<form id="addartist" action="/artist" method="post">
+    Artist name: <input type="text" name="artist_name"><br>
+    Genre: <input type="text" name="genre"><br>
+    Bio: <input type="text" name="bio"><br>
+    <input type="submit" value="Submit">
+ </form>
+<br/>
 
-	<title>View Playlists</title>
-</head>
-<body>
-	<div class="container">
-		<h1>View all artists</h1>
-
-
-		<div class="container">
-			<div class="row">
-			 <div class="col-md-6 mt-1">
-			    <div class="card">
-			      <div class="card-body">
-			        <h5 class="card-title">*Artist Name 1*</h5>
-			        <p class="card-text">*Genre*</p>
-			        <p class="card-text">*Biography*</p>
-			        <div class="btn-group">
-				        <a href="/albums" class="btn btn-primary">Albums</a>
-				        <a href="/songs" class="btn btn-secondary">Songs</a>
-				        <a href="#" class="btn btn-info">Edit Artist</a>
-				        <a href="#" class="btn btn-danger">Delete Artist</a>
-			        </div>
-			        
-			      </div>
-			    </div>
-			</div>
-			  <div class="col-md-6 mt-1">
-			    <div class="card">
-			      <div class="card-body">
-			        <h5 class="card-title">*Artist Name 2*</h5>
-			        <p class="card-text">*Genre*</p>
-			        <p class="card-text">*Biography*</p>
-			        <div class="btn-group">
-				   			<a href="/albums" class="btn btn-primary">Albums</a>
-				        <a href="/songs" class="btn btn-secondary">Songs</a>
-				        <a href="#" class="btn btn-info">Edit Artist</a>
-				        <a href="#" class="btn btn-danger">Delete Artist</a>
-			        </div>
-			        
-			      </div>
-			    </div>
-			</div>
-			<div class="col-md-6 mt-1">
-			    <div class="card">
-			      <div class="card-body">
-			        <h5 class="card-title">*Artist Name 3*</h5>
-			        <p class="card-text">*Genre*</p>
-			        <p class="card-text">*Biography*</p>
-			        <div class="btn-group">
-				        <a href="/albums" class="btn btn-primary">Albums</a>
-				        <a href="/songs" class="btn btn-secondary">Songs</a>
-				        <a href="#" class="btn btn-info">Edit Artist</a>
-				        <a href="#" class="btn btn-danger">Delete Artist</a>
-			        </div>
-			        
-			      </div>
-			    </div>
-			</div>
-			<div class="col-md-6 mt-1">
-			    <div class="card">
-			      <div class="card-body">
-			        <h5 class="card-title">*Artist Name 4*</h5>
-			        <p class="card-text">*Genre*</p>
-			        <p class="card-text">*Biography*</p>
-			        <div class="btn-group">
-								<a href="/albums" class="btn btn-primary">Albums</a>
-				        <a href="/songs" class="btn btn-secondary">Songs</a>
-				        <a href="#" class="btn btn-info">Edit Artist</a>
-				        <a href="#" class="btn btn-danger">Delete Artist</a>
-			        </div>
-			      </div>
-			    </div>
-			</div>
-			<div class="container mt-5">
-			<form>
-				<h3>Create New Artist</h3>
-			 <div class="row">
-			    <div class="col">
-			      <input type="text" class="form-control" placeholder="Aritist name">
-			    </div>
-			    <div class="col">
-			      <input type="text" class="form-control" placeholder="Genre">
-			    </div>
-			</div>
-			<div class="row">
-			    <div class="col">
-			      <input type="textarea" class="form-control" placeholder="Biography">
-			    </div>
-			 </div>
-			 <button class="btn btn-primary" type="submit">Submit</button>
-			</form>
-		</div>
-		</div>
-	</div>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-</body>
+<h3>Current people:</h3>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Genre</th>
+        <th>Bio</th>
+    </thead>
+    <tbody>
+        {{#each artist}}
+        <tr>
+            <td>{{artist_name}}</td>
+            <td>{{genre}}</td>
+            <td>{{bio}}</td>
+            <td><button onclick="deleteartist({{id}})">Delete</button></td>
+            <td><a href="/arist/{{id}}">Update</a></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
 </html>
