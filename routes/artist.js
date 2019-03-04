@@ -22,7 +22,7 @@ module.exports = function(){
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.person = results[0];
+            context.artists = results[0];
             complete();
         });
     }
@@ -34,7 +34,7 @@ module.exports = function(){
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.person = results;
+            context.artists = results;
             complete();
         });
     }
