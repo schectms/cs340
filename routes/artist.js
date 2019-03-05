@@ -22,7 +22,7 @@
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.artists = results[0];
+            context.artist = results[0];
             complete();
         });
     }
