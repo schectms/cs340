@@ -11,12 +11,13 @@
 
 		<div class="container">
 			<ul class="list-group">
+				{{#each playlists}}
 			  <li class="list-group-item">
-			  	Playlist 1
+			  	{{playlist_name}}
 			  	<div class="mt-1">
-			  		Created by: User 1
+			  		Created by: {{user_name}}
 				  	<div class="btn-group float-right">
-					  	<a href="songs.html" role="button" class="btn btn-primary btn-sm">
+					  	<a href="/songs?type=playlist&id={{playlist_id}}" role="button" class="btn btn-primary btn-sm">
 						  	View playlist songs
 						</a>
 						<button type="button" class="btn btn-info btn-sm">
@@ -28,98 +29,29 @@
 					</div>
 				</div>
 			  </li>
-
-			  <li class="list-group-item">
-			  	Playlist 2
-			  	<div class="mt-1">
-			  		Created by: User 2
-				  	<div class="btn-group float-right">
-					  	<a href="songs.html" role="button" class="btn btn-primary btn-sm">
-						  	View playlist songs
-						</a>
-						<button type="button" class="btn btn-info btn-sm">
-						  	Edit playlist
-						</button>
-						<button type="button" class="btn btn-danger btn-sm">
-						  	Delete playlist
-						</button>
-					</div>
-				</div>
-			  </li>
-
-			  <li class="list-group-item">
-			  	Playlist 3
-			  	<div class="mt-1">
-			  		Created by: User 3
-				  	<div class="btn-group float-right">
-					  	<a href="songs.html" role="button" class="btn btn-primary btn-sm">
-						  	View playlist songs
-						</a>
-						<button type="button" class="btn btn-info btn-sm">
-						  	Edit playlist
-						</button>
-						<button type="button" class="btn btn-danger btn-sm">
-						  	Delete playlist
-						</button>
-					</div>
-				</div>
-			  </li>
-
-			  <li class="list-group-item">
-			  	Playlist 4
-			  	<div class="mt-1">
-			  		Created by: User 4
-				  	<div class="btn-group float-right">
-					  	<a href="songs.html" role="button" class="btn btn-primary btn-sm">
-						  	View playlist songs
-						</a>
-						<button type="button" class="btn btn-info btn-sm">
-						  	Edit playlist
-						</button>
-						<button type="button" class="btn btn-danger btn-sm">
-						  	Delete playlist
-						</button>
-					</div>
-				</div>
-			  </li>
-
-			  <li class="list-group-item">
-			  	Playlist 5
-			  	<div class="mt-1">
-			  		Created by: User 5
-				  	<div class="btn-group float-right">
-					  	<a href="songs.html" role="button" class="btn btn-primary btn-sm">
-						  	View playlist songs
-						</a>
-						<button type="button" class="btn btn-info btn-sm">
-						  	Edit playlist
-						</button>
-						<button type="button" class="btn btn-danger btn-sm">
-						  	Delete playlist
-						</button>
-					</div>
-				</div>
-			  </li>
+				{{/each}}
 			</ul>
 		</div>
 		<div class="container mt-5">
-			<form>
+			<form id="add_playlist" action="/playlists" method="post">
 				<h3>Create New Playlist</h3>
-				<div>
-				      <input type="text" class="form-control" placeholder="Playlist name">
+			  <div class="row">
+			    <div class="col">
+			      <input type="text" class="form-control" placeholder="Playlist Name" name="playlist_name">
 			    </div>
-			    <div class="mt-2">
-				    <label for="exampleFormControlSelect1">User</label>
-					    <select class="form-control" id="exampleFormControlSelect1">
-					      <option>User 1</option>
-					      <option>User 2</option>
-					      <option>User 3</option>
-					      <option>User 4</option>
-					      <option>User 5</option>
+			    
+			  </div>
+              <div class="row">
+			    <div class="col">
+					    <select class="form-control" id="user_created" name="user_created">
+                            <option selected=true disabled="disabled">User</option>
+                            {{#each users_dropdown}}
+                            <option value="{{user_id}}">{{user_name}}</option>
+                            {{/each}}
 					    </select>
 				 </div>
-			    <button class="mt-1 btn btn-primary" type="submit">Submit</button>
 			  </div>
+              <button class="btn btn-primary" type="submit">Submit</button>
 			</form>
 		</div>
 	</div>
