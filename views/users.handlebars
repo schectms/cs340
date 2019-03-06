@@ -17,9 +17,6 @@
                     <div class="mt-1">
                         Favorite Song: {{song_name}} - {{artist_name}}
                         <div class="btn-group float-right">
-                            <a href="playlists/?id={{user_id}}" role="button" class="btn btn-primary btn-sm">
-                                View user's playlists
-                            </a>
                             <button type="button" class="btn btn-info btn-sm">
                                 Edit user
                             </button>
@@ -39,16 +36,20 @@
 			    <div class="col">
 			      <input type="text" class="form-control" placeholder="User Name" name="user_name">
 			    </div>
-                {{!-- <div class="mt-2"></div>
-                    <label for="fav_song">Song</label>
-					    <select class="form-control" id="fav_song" name="fav_song">
+			    
+			  </div>
+              <div class="row">
+			    <div class="col">
+					    <select class="form-control" id="fav_song" name="fav_song" placeholder="Favorite Song">
+                            <option selected=true disabled="disabled">Favorite Song</option>
                             {{#each dropdown_songs}}
-                            <option name="{{song_id}}">{{song_name}} - {{artist_name}}</option>
+                            <option value="{{song_id}}">{{song_name}} - {{artist_name}}</option>
                             {{/each}}
 					    </select>
-				 </div> --}}
-			    <button class="btn btn-primary" type="submit">Submit</button>
+				 </div>
+			    
 			  </div>
+              <button class="btn btn-primary" type="submit">Submit</button>
 			</form>
 		</div>
 	</div>
