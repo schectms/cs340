@@ -1,31 +1,52 @@
+<!DOCTYPE html>
 <html>
-{{#each foo}}
-{{this}}
-{{/each}}
-<h3> ALBUMS:</h3>
-<form id="addalbum" action="/artist" method="post">
-    Album name: <input type="text" name="album_name"><br>
-    Genre: <input type="text" name="genre"><br>
-    Bio: <input type="text" name="bio"><br>
-    <input type="submit" value="Submit">
- </form>
-<br/>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-<h3>Current Albums:</h3>
-<table>
-    <thead>
-        <th>Name</th>
-        <th>Artist</th>
-    </thead>
-    <tbody>
-        {{#each album}}
-        <tr>
-            <td>{{album_name}}</td>
-            <td>{{artist}}</td>
-            <td><button onclick="deleteartist({{id}})">Delete</button></td>
-            <td><a href="/album/{{id}}">Update</a></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+	<title>View Playlists</title>
+</head>
+<body>
+	<div class="container">
+		<h1>View Albums</h1>
+
+		<div class="container">
+			<ul class="list-group">
+              {{#each albums}}
+			  <li class="list-group-item">
+			  	{{album_name}}
+			  	<div class="mt-1">
+			  		Artist: {{artist_name}}
+				  	<div class="btn-group float-right">
+					  	<a href="/songs?type=album&id={{album_id}}" role="button" class="btn btn-primary btn-sm">
+						  	View album songs
+						</a>
+						<button type="button" class="btn btn-info btn-sm">
+						  	Edit album
+						</button>
+						<button type="button" class="btn btn-danger btn-sm">
+						  	Delete album
+						</button>
+					</div>
+				</div>
+			  </li>
+              {{/each}}
+            </ul>
+        </div>
+
+		<div class="container mt-5">
+			<form id="add_album" action="/albums?artist_id={{artist.artist_id}}" method="post">
+				<h3>Create New Album for {{artist.artist_name}}</h3>
+				<div>
+				      <input type="text" class="form-control" name="album_name" placeholder="Album name">
+			    </div>
+			    <button class="mt-1 btn btn-primary" type="submit">Submit</button>
+			</form>
+		</div>
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
 </html>

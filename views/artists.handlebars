@@ -18,17 +18,17 @@
 		    Genre: {{artist_genre}} 
 		    Biography: {{artist_bio}} 
 		    <div class="btn-group float-right">
-		    	<a href="artists/?id={{artist_id}}" role="button" class="btn btn-primary btn-sm">
-                                View artists' albums
+		    	<a href="/albums?artist_id={{artist_id}}" role="button" class="btn btn-primary btn-sm">
+                                Albums
                        </a>
-		       <a href="artists/?id={{artist_id}}" role="button" class="btn btn-primary btn-sm">
-                                View artists' songs
+		       <a href="/songs?type=artist&id={{artist_id}}" role="button" class="btn btn-secondary btn-sm">
+                                Songs
                        </a>
 			<button type="button" class="btn btn-info btn-sm">
-                                Edit artist
+                                Edit
 			</button>
-			<button type="button" class="btn btn-info btn-sm">
-                                Delete artist
+			<button type="button" class="btn btn-danger btn-sm">
+                                Delete
 			</button>
                     </div>
                </div>
