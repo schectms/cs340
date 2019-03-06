@@ -5,10 +5,11 @@
 
 	<title>{{title}}</title>
 </head>
+<body>
+	<div class="container">
+		<h1>View Artist:</h1>
 
-<h3>View Artists:</h3>
-
-<div class="container">
+		<div class="container">
 			<ul class="list-group">
                 {{#each artists}}
 			    <li class="list-group-item">
@@ -16,41 +17,43 @@
                     <div class="mt-1">
 		    Genre: {{artist_genre}} 
 		    Biography: {{artist_bio}} 
-		    <a href="artists/?id={{artist_id}}" role="button" class="btn btn-primary btn-sm">
+		    <div class="btn-group float-right">
+		    	<a href="artists/?id={{artist_id}}" role="button" class="btn btn-primary btn-sm">
                                 View artists' albums
-                            </a>
-	<a href="artists/?id={{artist_id}}" role="button" class="btn btn-primary btn-sm">
+                       </a>
+		       <a href="artists/?id={{artist_id}}" role="button" class="btn btn-primary btn-sm">
                                 View artists' songs
-                            </a>
-	<button type="button" class="btn btn-info btn-sm">
+                       </a>
+			<button type="button" class="btn btn-info btn-sm">
                                 Edit artist
-                            </button>
-                            <button type="button" class="btn btn-danger btn-sm">
+			</button>
+			<button type="button" class="btn btn-info btn-sm">
                                 Delete artist
-                            </button>
-                        </div>
+			</button>
                     </div>
-			    </li>	
-			    {{/each}}
+               </div>
+			 </li>
+	
+		{{/each}}
             </ul>
 		</div>
+		<div class="container mt-5">
+			<form id="addartist" action="/artists" method="post">
+				<h3> Create New Artists:</h3>
 
-<div class="container mt-5">
-<form id="addartist" action="/artists" method="post">
-<h3> Create New Artists:</h3>
-
-<div class="row">
-<div class="col">
- <input type="text" class="form-control" placeholder="Artist name" name="artist_name">
- <input type="text" class="form-control" placeholder="Genre" name="artist_genre">
-  <input type="text" class="form-control" placeholder="Biography" name="artist_bio">
-   <button class="btn btn-primary" type="submit">Submit</button>
-  </div>
-</form>
+			<div class="row">
+				<div class="col">
+			 <input type="text" class="form-control" placeholder="Artist name" name="artist_name">
+ 			<input type="text" class="form-control" placeholder="Genre" name="artist_genre">
+ 			 <input type="text" class="form-control" placeholder="Biography" name="artist_bio">
+ 			  <button class="btn btn-primary" type="submit">Submit</button>
+  		</div>
+	</form>
 </div>
-</html>
 
+</div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 </body>
+</html>
