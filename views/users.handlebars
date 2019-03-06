@@ -1,30 +1,61 @@
+<!DOCTYPE html>
 <html>
-{{#each foo}}
-{{this}}
-{{/each}}
-<h3> USERS:</h3>
-<form id="adduser" action="/user" method="post">
-    User name: <input type="text" name="user_name"><br>
-    Favorite Song: <input type="text" name="song"><br>
-    <input type="submit" value="Submit">
- </form>
-<br/>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-<h3>Current Songs:</h3>
-<table>
-    <thead>
-        <th>Name</th>
-        <th>Favorite Song</th>
-    </thead>
-    <tbody>
-        {{#each song}}
-        <tr>
-            <td>{{user_name}}</td>
-            <td>{{song}}</td>
-            <td><button onclick="deleteartist({{id}})">Delete</button></td>
-            <td><a href="/song/{{id}}">Update</a></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+	<title>{{title}}</title>
+</head>
+<body>
+	<div class="container">
+		<h1>View Users</h1>
+
+		<div class="container">
+			<ul class="list-group">
+                {{#each users}}
+			    <li class="list-group-item">
+			  	    {{user_name}}
+                    <div class="mt-1">
+                        Favorite Song: {{song_name}} - {{artist_name}}
+                        <div class="btn-group float-right">
+                            <a href="playlists/?id={{user_id}}" role="button" class="btn btn-primary btn-sm">
+                                View user's playlists
+                            </a>
+                            <button type="button" class="btn btn-info btn-sm">
+                                Edit user
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm">
+                                Delete User
+                            </button>
+                        </div>
+                    </div>
+			    </li>
+                {{/each}}
+            </ul>
+		</div>
+		<div class="container mt-5">
+			<form id="add_user" action="/users" method="post">
+				<h3>Create New User</h3>
+			  <div class="row">
+			    <div class="col">
+			      <input type="text" class="form-control" placeholder="User Name" name="user_name">
+			    </div>
+                {{!-- <div class="mt-2"></div>
+                    <label for="fav_song">Song</label>
+					    <select class="form-control" id="fav_song" name="fav_song">
+                            {{#each dropdown_songs}}
+                            <option name="{{song_id}}">{{song_name}} - {{artist_name}}</option>
+                            {{/each}}
+					    </select>
+				 </div> --}}
+			    <button class="btn btn-primary" type="submit">Submit</button>
+			  </div>
+			</form>
+		</div>
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
 </html>

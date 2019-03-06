@@ -14,7 +14,7 @@
     }
 
      
-    function getArtist( res, mysql, context, complete){
+    function getArtist(req, res, mysql, context, complete){
         var sql = "SELECT artist.artist_name, artist.artist_genre, artist.artist_bio, artist.artist_id AS id FROM artist WHERE artist_id = ?";
         var inserts = [id]; // this needs to be the artist id from the req
         mysql.pool.query(sql, inserts, function(error, results, fields){
