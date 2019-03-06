@@ -1,15 +1,26 @@
+<!DOCTYPE html>
 <html>
-{{#each foo}}
-{{this}}
-{{/each}}
-<h3> ARTISTS:</h3>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>{{title}}</title>
+</head>
+
+<div class="container mt-5">
 <form id="addartist" action="/artists" method="post">
-    Artist name: <input type="text" name="artist_name"><br>
-    Genre: <input type="text" name="artist_genre"><br>
-    Bio: <input type="text" name="artist_bio"><br>
-    <input type="submit" value="Submit">
- </form>
-<br/>
+<h3> Create New Artists:</h3>
+
+<div class="row">
+<div class="col">
+ <input type="text" class="form-control" placeholder="Artist name" name="artist_name">
+ <input type="text" class="form-control" placeholder="Genre" name="artist_genre">
+  <input type="text" class="form-control" placeholder="Biography" name="artist_bio">
+   <button class="btn btn-primary" type="submit">Submit</button>
+  </div>
+</form>
+</div>
+
+   
 
 <h3>Current Artists:</h3>
 <table>
@@ -31,3 +42,8 @@
     </tbody>
 </table>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
