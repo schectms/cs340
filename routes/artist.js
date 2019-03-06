@@ -58,7 +58,7 @@
     router.post('/', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO artist (artist_name, artist_genre, artist_bio) VALUES (?, ?, ?)";
-        var inserts = [req.body.artist_name, req.body_artist_genre, req.body.artist_bio];
+        var inserts = [req.body.artist_name, req.body.artist_genre, req.body.artist_bio];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log(JSON.stringify(error))
