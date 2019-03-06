@@ -6,6 +6,35 @@
 	<title>{{title}}</title>
 </head>
 
+<h3>View Artists:</h3>
+
+<div class="container">
+			<ul class="list-group">
+                {{#each artists}}
+			    <li class="list-group-item">
+			  	    {{artist_name}}
+                    <div class="mt-1">
+		    Genre: {{artist_genre}} 
+		    Biography: {{artist_bio}} 
+		    <a href="artists/?id={{artist_id}}" role="button" class="btn btn-primary btn-sm">
+                                View artists' albums
+                            </a>
+	<a href="artists/?id={{artist_id}}" role="button" class="btn btn-primary btn-sm">
+                                View artists' songs
+                            </a>
+	<button type="button" class="btn btn-info btn-sm">
+                                Edit artist
+                            </button>
+                            <button type="button" class="btn btn-danger btn-sm">
+                                Delete artist
+                            </button>
+                        </div>
+                    </div>
+			    </li>	
+			    {{/each}}
+            </ul>
+		</div>
+
 <div class="container mt-5">
 <form id="addartist" action="/artists" method="post">
 <h3> Create New Artists:</h3>
@@ -19,28 +48,6 @@
   </div>
 </form>
 </div>
-
-   
-
-<h3>Current Artists:</h3>
-<table>
-    <thead>
-        <th>Name</th>
-        <th>Genre</th>
-        <th>Bio</th>
-    </thead>
-    <tbody>
-        {{#each artists}}
-        <tr>
-            <td>{{artist_name}}</td>
-            <td>{{artist_genre}}</td>
-            <td>{{artist_bio}}</td>
-            <td><button onclick="deleteartist({{id}})">Delete</button></td>
-            <td><a href="/artists/{{id}}">Update</a></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
 </html>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
