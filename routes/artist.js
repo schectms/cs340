@@ -53,6 +53,21 @@
             res.render('artists', context);
         }
     });
+		
+	router.get('/:artist_id', function(req, res){
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["updateArtist.js"];
+        var mysql = req.app.get('mysql');
+        getArtist(res, mysql, context, req.params.id, complete);
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 2){
+                res.render('update-artist', context);
+            }
+
+        }
+    });
 
     /* CREATE - Adds an artist */
 
