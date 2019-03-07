@@ -85,6 +85,24 @@
             }
         });
     });
+		
+	router.put('/:artist_id', function(req, res){
+        var mysql = req.app.get('mysql');
+        console.log(req.body)
+        console.log(req.params.artist_id)
+        var sql = "UPDATE artist SET artist_name=?, artist_genre=?, artist_bio=? WHERE artist_id=?";
+        var inserts = [req.body.artist_name, req.body.artist_genre, req.body.artist_bio, req.params.artist_id];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.status(200);
+                res.end();
+            }
+        });
+    });
 
  router.delete('/:artist_id', function(req, res){
         var mysql = req.app.get('mysql');
