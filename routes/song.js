@@ -15,7 +15,7 @@ module.exports = (function() {
 				context.info.name = 'No songs yet';
 				context.info.type = 'Playlist';
 				context.info.playlist = true;
-				context.info.playlist = true;
+				context.info.playlist_id = req.query.playlist_id;
 				complete();
 			} else {
 				context.info.name = results[0].playlist_name + ' - ' + results[0].user_name;
@@ -41,10 +41,12 @@ module.exports = (function() {
 				context.info.name = 'No songs yet';
 				context.info.type = 'Album';
 				context.info.album = true;
+				context.info.artist_id = req.query.artist_id;
+				context.info.album_id = req.query.album_id;
 				complete();
 			} else {
 				context.info.name = results[0].album_name + ' - ' + results[0].artist_name;
-				context.info.artist_id = results[0].artist_id;
+				context.info.artist_id = req.query.artist_id;
 				context.info.album_id = req.query.album_id;
 				context.info.type = 'Album';
 				context.info.album = true;
@@ -66,6 +68,8 @@ module.exports = (function() {
 			if (results === undefined || results.length == 0) {
 				context.info.name = 'No songs yet';
 				context.info.type = 'Artist';
+				context.info.artist = true;
+				context.info.artist_id = req.query.artist_id;
 				complete();
 			} else {
 				context.info.name = results[0].artist_name;

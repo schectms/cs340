@@ -4,7 +4,7 @@ module.exports = (function() {
 
 	function getAlbumsByArtist(req, res, mysql, context, complete) {
 		var sql =
-			'SELECT album.album_name, artist.artist_name, album.album_id FROM album INNER JOIN artist ON artist.artist_id = album.aid WHERE album.aid = ?';
+			'SELECT album.album_name, artist.artist_name, album.album_id, artist.artist_id FROM album INNER JOIN artist ON artist.artist_id = album.aid WHERE album.aid = ?';
 		var inserts = [ req.query.artist_id ];
 		mysql.pool.query(sql, inserts, function(error, results, fields) {
 			if (error) {
@@ -34,7 +34,7 @@ module.exports = (function() {
 	router.get('/', function(req, res) {
 		let count = 0;
 		var context = {};
-		context.jsscripts = ["deleteAlbum.js"];
+		context.jsscripts = [ 'deleteAlbum.js' ];
 		var mysql = req.app.get('mysql');
 		getAlbumsByArtist(req, res, mysql, context, complete);
 		getArtist(req, res, mysql, context, complete);
@@ -62,21 +62,21 @@ module.exports = (function() {
 			}
 		});
 	});
-	
-	 router.delete('/:album_id', function(req, res){
-        var mysql = req.app.get('mysql');
-        var sql = "DELETE FROM album WHERE album_id = ?";
-        var inserts = [req.params.album_id];
-        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
-            if(error){
-                res.write(JSON.stringify(error));
-                res.status(400);
-                res.end();
-            }else{
-                res.status(202).end();
-            }
-        })
-    })
+
+	router.delete('/:album_id', function(req, res) {
+		var mysql = req.app.get('mysql');
+		var sql = 'DELETE FROM album WHERE album_id = ?';
+		var inserts = [ req.params.album_id ];
+		sql = mysql.pool.query(sql, inserts, function(error, results, fields) {
+			if (error) {
+				res.write(JSON.stringify(error));
+				res.status(400);
+				res.end();
+			} else {
+				res.status(202).end();
+			}
+		});
+	});
 
 	return router;
 })();
