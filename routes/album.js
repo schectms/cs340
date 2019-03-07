@@ -63,6 +63,24 @@ module.exports = (function() {
 		});
 	});
 
+	router.put('/:album_id', function(req, res){
+        var mysql = req.app.get('mysql');
+//        console.log(req.body)
+        console.log(req.query.album_id);
+        var sql="UPDATE album SET album_name = ? WHERE album_id=?";
+	var inserts = [req.body.album_name, req.query.artist_id];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.status(200);
+                res.end();
+
+            }
+        });
+    });
 	router.delete('/:album_id', function(req, res) {
 		var mysql = req.app.get('mysql');
 		var sql = 'DELETE FROM album WHERE album_id = ?';
