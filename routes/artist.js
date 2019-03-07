@@ -14,8 +14,8 @@
     }
 
      
-    function getArtist(req, res, mysql, context, complete){
-        var sql = "SELECT artist.artist_name, artist.artist_genre, artist.artist_bio, artist.artist_id AS id FROM artist WHERE artist_id = ?";
+    function getArtist(res, mysql, context, id, complete){
+        var sql = "SELECT artist.artist_name, artist.artist_genre, artist.artist_bio, artist.artist_id  as id FROM artist WHERE artist_id = ?";
         var inserts = [id]; // this needs to be the artist id from the req
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
@@ -59,14 +59,12 @@
         var context = {};
         context.jsscripts = ["updateArtist.js"];
         var mysql = req.app.get('mysql');
-        getArtist(res, mysql, context, req.params.id, complete);
+        getArtist(res, mysql, context, req.params.artist_id, complete);
         function complete(){
-            callbackCount++;
-            if(callbackCount >= 2){
                 res.render('update-artist', context);
             }
 
-        }
+        
     });
 
     /* CREATE - Adds an artist */
@@ -88,10 +86,10 @@
 		
 	router.put('/:artist_id', function(req, res){
         var mysql = req.app.get('mysql');
-        console.log(req.body)
-        console.log(req.params.artist_id)
-        var sql = "UPDATE artist SET artist_name=?, artist_genre=?, artist_bio=? WHERE artist_id=?";
-        var inserts = [req.body.artist_name, req.body.artist_genre, req.body.artist_bio, req.params.artist_id];
+//        console.log(req.body)
+        console.log(req.params.artist_id);
+        var sql="UPDATE artist SET artist_name = ?, artist_genre = ?, artist_bio = ? WHERE artist_id=21";
+	var inserts = [req.body.artist_name, req.body.artist_genre, req.body.artist_bio, req.params.artist_id];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log(error)
@@ -100,6 +98,7 @@
             }else{
                 res.status(200);
                 res.end();
+
             }
         });
     });
