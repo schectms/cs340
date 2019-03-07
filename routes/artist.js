@@ -70,10 +70,6 @@
         });
     });
 
-    return router;
-}();
-
-
  router.delete('/:artist_id', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM artist WHERE artist_id = ?";
