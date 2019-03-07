@@ -1,33 +1,100 @@
+<!DOCTYPE html>
 <html>
-{{#each foo}}
-{{this}}
-{{/each}}
-<h3> SONGS:</h3>
-<form id="addsong" action="/song" method="post">
-    Song name: <input type="text" name="song_name"><br>
-    Artist: <input type="text" name="artist"><br>
-    Album: <input type="text" name="album"><br>
-    <input type="submit" value="Submit">
- </form>
-<br/>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-<h3>Current Songs:</h3>
-<table>
-    <thead>
-        <th>Name</th>
-        <th>Artist</th>
-        <th>Album</th>
-    </thead>
-    <tbody>
-        {{#each song}}
-        <tr>
-            <td>{{song_name}}</td>
-            <td>{{artist}}</td>
-            <td>{{album}}</td>
-            <td><button onclick="deleteartist({{id}})">Delete</button></td>
-            <td><a href="/song/{{id}}">Update</a></td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+	<title>View songs by {{info.type}}</title>
+</head>
+<body>
+	{{!-- NAVBAR --}}
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="/">Home</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarText">
+			<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="/users">Users <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/artists">Artists</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/playlists">Playlists</a>
+			</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container mt-5">
+
+		{{!-- CONTENT --}}
+		<h1>View songs by {{info.type}}</h1> 
+        <h1>{{info.name}}</h1>
+
+		<div class="container">
+			<ul class="list-group">
+                {{#each songs}}
+			  <li class="list-group-item">
+                  {{#if chks}}
+			  	    {{song_name}} - {{artist_name}}
+                  {{else}}
+                    {{song_name}}
+                  {{/if}}
+			  	<div class="mt-1">
+				  	<div class="btn-group float-right">
+						<button type="button" class="btn btn-info btn-sm">
+						  	Edit song
+						</button>
+						<button type="button" class="btn btn-danger btn-sm">
+						  	Delete song from {{type}}
+						</button>
+					</div>
+				</div>
+			  </li>
+              {{/each}}
+
+			</ul>
+        </div>
+
+		
+		<div class="container mt-5">
+            {{#if info.album}}
+			<form id="add_song" action="/songs?type=album&artist_id={{info.artist_id}}&album_id={{info.album_id}}" method="post">
+				<h3>Add song to {{info.type}}</h3> 
+                <h3>{{info.name}}</h3>
+			    <input type="text" class="form-control" placeholder="Song name" name="song_name">
+			    <button class="btn btn-primary" type="submit">Submit</button>
+			  </div>
+			</form>
+            {{else if info.artist}}
+			<form id="add_song" action="/songs?type=artist&artist_id={{info.artist_id}}" method="post">
+				<h3>Add song to {{info.type}}</h3> 
+                <h3>{{info.name}}</h3>
+			    <input type="text" class="form-control" placeholder="Song name" name="song_name">
+			    <button class="btn btn-primary" type="submit">Submit</button>
+			  </div>
+			</form>
+            {{else if info.playlist}}
+			<form id="add_song" name="add_song" action="/songs?type=playlist&playlist_id={{info.playlist_id}}" method="post">
+				<h3>Add song to {{info.type}}</h3> 
+                <h3>{{info.name}}</h3>
+			    <select class="form-control" id="playlist_song" name="playlist_song" placeholder="Add Song">
+                    <option selected=true disabled="disabled">Add Song</option>
+                    {{#each dropdown_songs}}
+                    <option value="{{song_id}}">{{song_name}} - {{artist_name}}</option>
+                    {{/each}}
+				</select>
+			    <button class="btn btn-primary" type="submit">Submit</button>
+			  </div>
+			</form>
+            {{/if}}
+		</div>
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
 </html>

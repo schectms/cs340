@@ -6,7 +6,29 @@
 	<title>{{title}}</title>
 </head>
 <body>
-	<div class="container">
+	{{!-- NAVBAR --}}
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="/">Home</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarText">
+			<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="/users">Users <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/artists">Artists</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/playlists">Playlists</a>
+			</li>
+			</ul>
+		</div>
+	</nav>
+	<div class="container mt-5">
+
+		{{!-- CONTENT --}}
 		<h1>View Artist:</h1>
 
 		<div class="container">
@@ -21,7 +43,7 @@
 		    	<a href="/albums?artist_id={{artist_id}}" role="button" class="btn btn-primary btn-sm">
                                 Albums
                        </a>
-		       <a href="/songs?type=artist&id={{artist_id}}" role="button" class="btn btn-secondary btn-sm">
+		       <a href="/songs?type=artist&artist_id={{artist_id}}" role="button" class="btn btn-secondary btn-sm">
                                 Songs
                        </a>
 			<button type="button" class="btn btn-info btn-sm">
