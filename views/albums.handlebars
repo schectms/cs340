@@ -42,10 +42,10 @@
 					  	<a href="/songs?type=album&album_id={{album_id}}&artist_id={{artist_id}}" role="button" class="btn btn-primary btn-sm">
 						  	View album songs
 						</a>
-						<button type="button" class="btn btn-info btn-sm">
-						  	Edit album
-						</button>
-							 <button onclick="deleteAlbum({{album_id}})"  type="button" class="btn btn-danger btn-sm" >Delete</button>
+						<a href="/albums/{{album_id}}?=album_id" role="button" class="btn btn-secondary btn-sm">
+                                Edit Album
+                       </a>
+		       			 <button onclick="deleteAlbum({{album_id}})"  type="button" class="btn btn-danger btn-sm" >Delete</button>
 					</div>
 				</div>
 			  </li>
