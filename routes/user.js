@@ -33,6 +33,7 @@ module.exports = (function() {
 	router.get('/', function(req, res) {
 		let count = 0;
 		var context = { title: 'Users', users: {}, dropdown_songs: {} };
+		context.jsscripts = ["deleteUser.js"];
 		var mysql = req.app.get('mysql');
 		getUsers(req, res, mysql, context, complete);
 		getSongsForDropdown(req, res, mysql, context, complete);
