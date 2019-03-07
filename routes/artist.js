@@ -74,10 +74,10 @@
 }();
 
 
- router.delete('/:id', function(req, res){
+ router.delete('/:artist_id', function(req, res){
         var mysql = req.app.get('mysql');
-        var sql = "DELETE FROM artist WHERE character_id = ?";
-        var inserts = [req.params.id];
+        var sql = "DELETE FROM artist WHERE artist_id = ?";
+        var inserts = [req.params.artist_id];
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
