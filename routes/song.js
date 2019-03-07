@@ -14,6 +14,8 @@ module.exports = (function() {
 			if (results === undefined || results.length == 0) {
 				context.info.name = 'No songs yet';
 				context.info.type = 'Playlist';
+				context.info.playlist = true;
+				context.info.playlist = true;
 				complete();
 			} else {
 				context.info.name = results[0].playlist_name + ' - ' + results[0].user_name;
@@ -38,6 +40,7 @@ module.exports = (function() {
 			if (results === undefined || results.length == 0) {
 				context.info.name = 'No songs yet';
 				context.info.type = 'Album';
+				context.info.album = true;
 				complete();
 			} else {
 				context.info.name = results[0].album_name + ' - ' + results[0].artist_name;
@@ -94,7 +97,7 @@ module.exports = (function() {
 	router.get('/', function(req, res) {
 		var callbackCount = 0;
 		var context = { info: {} };
-		context.jsscripts = ["deleteSong.js"];
+		context.jsscripts = [ 'deleteSong.js' ];
 		context.title = 'View Songs by ';
 		var mysql = req.app.get('mysql');
 		var filter_type = req.query.type;
@@ -144,21 +147,21 @@ module.exports = (function() {
 			}
 		});
 	});
-	
-	 router.delete('/:song_id', function(req, res){
-        var mysql = req.app.get('mysql');
-        var sql = "DELETE FROM song WHERE song_id = ?";
-        var inserts = [req.params.song_id];
-        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
-            if(error){
-                res.write(JSON.stringify(error));
-                res.status(400);
-                res.end();
-            }else{
-                res.status(202).end();
-            }
-        })
-    })
+
+	router.delete('/:song_id', function(req, res) {
+		var mysql = req.app.get('mysql');
+		var sql = 'DELETE FROM song WHERE song_id = ?';
+		var inserts = [ req.params.song_id ];
+		sql = mysql.pool.query(sql, inserts, function(error, results, fields) {
+			if (error) {
+				res.write(JSON.stringify(error));
+				res.status(400);
+				res.end();
+			} else {
+				res.status(202).end();
+			}
+		});
+	});
 
 	return router;
 })();
