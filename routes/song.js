@@ -144,6 +144,21 @@ module.exports = (function() {
 			}
 		});
 	});
+	
+	 router.delete('/:song_id', function(req, res){
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM song WHERE song_id = ?";
+        var inserts = [req.params.song_id];
+        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.status(400);
+                res.end();
+            }else{
+                res.status(202).end();
+            }
+        })
+    })
 
 	return router;
 })();
