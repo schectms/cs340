@@ -34,6 +34,7 @@ module.exports = (function() {
 	router.get('/', function(req, res) {
 		let count = 0;
 		var context = {};
+		context.jsscripts = ["deleteAlbum.js"];
 		var mysql = req.app.get('mysql');
 		getAlbumsByArtist(req, res, mysql, context, complete);
 		getArtist(req, res, mysql, context, complete);
