@@ -47,6 +47,7 @@ module.exports = (function() {
 	router.get('/', function(req, res) {
 		var callbackCount = 0;
 		var context = {};
+		context.jsscripts = ["deletePlaylist.js"];
 		var mysql = req.app.get('mysql');
 		getPlaylists(req, res, mysql, context, complete);
 		getUsersForDropDown(req, res, mysql, context, complete);
