@@ -46,6 +46,7 @@
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
+	context.jsscripts = ["deleteperson.js"];
         var mysql = req.app.get('mysql');
         getArtists( res, mysql, context, complete);
         function complete(){
