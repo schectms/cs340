@@ -3,6 +3,19 @@ const mysql = require('./../dbcon.js');
 const moment = require('moment');
 const router = express.Router();
 
+function getAlbum(req, res, mysql, context, complete) {
+		var sql = 'SELECT album.album_name  FROM album WHERE album_id = ?';
+		var inserts = [ req.query.album_id ];
+		mysql.pool.query(sql, inserts, function(error, results, fields) {
+			if (error) {
+				res.write(JSON.stringify(error));
+				res.end();
+			}
+			context.album = results[0];
+			complete();
+		});
+	}
+
 //returns table in JSON format 
 router.get('/', (req, res, next) =>
 {
