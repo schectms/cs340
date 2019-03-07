@@ -94,6 +94,7 @@ module.exports = (function() {
 	router.get('/', function(req, res) {
 		var callbackCount = 0;
 		var context = { info: {} };
+		context.jsscripts = ["deleteSong.js"];
 		context.title = 'View Songs by ';
 		var mysql = req.app.get('mysql');
 		var filter_type = req.query.type;
