@@ -1,6 +1,6 @@
 <html>
 <h1>Update {{artist_name}}:</h1>
-<form id="update-artist" action="/artists" method="post">
+<form id="update-artist" action="/artists/{{artist.artist_id}}" method="post">
     Name: <input type="text" name="artist_name" value="{{artist.artist_name}}"><br>
     Genre: <input type="text" name="artist_genre" value="{{artist.artist_genre}}"><br>
     Biography: <input type="text" name="artist_bio" value="{{artist.artist_bio}}"><br>
