@@ -14,19 +14,6 @@ module.exports = (function() {
 			complete();
 		});
 	}
-	
-	function getUser(res, mysql, context, id, complete){
-        var sql = "SELECT user.user_id, user.user_name FROM user WHERE user.user_id = ?";
-        var inserts = [id];
-        mysql.pool.query(sql, inserts, function(error, results, fields){
-            if(error){
-                res.write(JSON.stringify(error));
-                res.end();
-            }
-            context.user = results[0];
-            complete();
-        });
-    }
 
 	function getSongsForDropdown(req, res, mysql, context, complete) {
 		var sql =
@@ -45,7 +32,38 @@ module.exports = (function() {
 
 	router.get('/', function(req, res) {
 		let count = 0;
-		router.delete('/:user_id', function(req, res){
+		var context = { title: 'Users', users: {}, dropdown_songs: {} };
+		context.jsscripts = ["deleteUser.js"];
+		var mysql = req.app.get('mysql');
+		getUsers(req, res, mysql, context, complete);
+		getSongsForDropdown(req, res, mysql, context, complete);
+		function complete() {
+			count++;
+			if (count >= 2) {
+				res.render('users', context);
+			}
+		}
+	});
+
+	/* CREATE Adds a user */
+
+	router.post('/', function(req, res) {
+		console.log(req.body);
+		var mysql = req.app.get('mysql');
+		var sql = 'INSERT INTO user (user_name, sid) VALUES (?, ?)';
+		var inserts = [ req.body.user_name, req.body.fav_song ];
+		sql = mysql.pool.query(sql, inserts, function(error, results, fields) {
+			if (error) {
+				console.log(JSON.stringify(error));
+				res.write(JSON.stringify(error));
+				res.end();
+			} else {
+				res.redirect('/users');
+			}
+		});
+	});
+	
+	 router.delete('/:user_id', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM user WHERE user_id = ?";
         var inserts = [req.params.user_id];
