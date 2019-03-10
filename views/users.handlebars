@@ -39,9 +39,9 @@
                     <div class="mt-1">
                         Favorite Song: {{song_name}} - {{artist_name}}
                         <div class="btn-group float-right">
-                            <button type="button" class="btn btn-info btn-sm">
-                                Edit user
-                            </button>
+                           <a href="/users/{{user_id}}?=user_id" role="button" class="btn btn-secondary btn-sm">
+                                Edit User
+                       </a>
                             	 <button onclick="deleteUser({{user_id}})"  type="button" class="btn btn-danger btn-sm" >Delete</button>
                         </div>
                     </div>
