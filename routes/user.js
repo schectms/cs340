@@ -97,7 +97,7 @@ module.exports = (function() {
 	
 	router.put('/:user_id', function(req, res){
         var mysql = req.app.get('mysql');
-//        console.log(req.body)
+      console.log(req.body.fav_song )
         console.log(req.params.user_id);
         var sql="UPDATE user SET user_name = ? WHERE user_id=?";
 	var inserts = [req.body.user_name, req.params.user_id];
