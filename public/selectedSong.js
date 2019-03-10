@@ -1,3 +1,3 @@
-function selectSong(id){
-    $("#song-selector").val(id);
+function selectSong(user_id){
+    $("#song-selector").val(user_id);
 }
