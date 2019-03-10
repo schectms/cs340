@@ -59,20 +59,21 @@ module.exports = (function() {
 	});
 	
 	router.get('/:user_id', function(req, res){
-        callbackCount = 0;
+        let count = 0;
         var context = {};
         context.jsscripts = ["updateUser.js", "selectedsong.js"];
         var mysql = req.app.get('mysql');
         getUser(res, mysql, context, req.params.user_id, complete);
-	getSongsForDropdown(req, res, mysql, context, complete);
+        getSongsForDropdown(req, res, mysql, context, complete);
         function complete(){
-            callbackCount++;
-            if(callbackCount >= 2){
+            count++;
+            if(count >= 2){
                 res.render('update-user', context);
             }
 
-        
+        }
     });
+
 
 	/* CREATE Adds a user */
 
