@@ -1,0 +1,13 @@
+<html>
+<h1>Update {{user.user_name}}:</h1>
+<form id="update-user" action="/users" method="post">
+    User name: <input type="text" name="user_name" value="{{user.user_name}}"><br>
+    Favorite Song: <select name="song" id="song-selector"> 
+        {{#each songs}}
+        <option value="{{id}}">{{name}}</option>
+        {{/each}}
+    </select><br>
+</form>
+<button onclick="updateUser({{user.id}})">Update</button>
+<script defer>selectSong({{user.song}});</script>
+</html>
