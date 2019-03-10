@@ -91,7 +91,7 @@ module.exports = (function() {
 	router.put('/:album_id', function(req, res){
         var mysql = req.app.get('mysql');
 //        console.log(req.body)
-        console.log(req.query.album_id);
+        console.log(req.params.album_id);
         var sql="UPDATE album SET album_name = ? WHERE album_id=?";
 	var inserts = [req.body.album_name, req.params.artist_id]
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
