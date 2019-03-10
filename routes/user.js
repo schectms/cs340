@@ -14,6 +14,19 @@ module.exports = (function() {
 			complete();
 		});
 	}
+	
+	function getUser(res, mysql, context, id, complete){
+        var sql = "SELECT user_id as id, user.user_name FROM user WHERE character_id = ?";
+        var inserts = [id];
+        mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.user = results[0];
+            complete();
+        });
+    }
 
 	function getSongsForDropdown(req, res, mysql, context, complete) {
 		var sql =
@@ -44,6 +57,22 @@ module.exports = (function() {
 			}
 		}
 	});
+	
+	router.get('/:id', function(req, res){
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["selectedSong.js", "updateUser.js"];
+        var mysql = req.app.get('mysql');
+        getUser(res, mysql, context, req.params.id, complete);
+       getSongsForDropdown(res, mysql, context, complete);
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 2){
+                res.render('update-user', context);
+            }
+
+        }
+    });
 
 	/* CREATE Adds a user */
 
