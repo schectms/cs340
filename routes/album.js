@@ -29,6 +29,18 @@ module.exports = (function() {
 		});
 	}
 
+	function getAlbum(res, mysql, context, id, complete){
+        var sql = "SELECT album.album_name, , album.album_id  FROM album WHERE album_id = ?";
+        var inserts = [id]; // this needs to be the artist id from the req
+        mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.album = results[0];
+            complete();
+        });
+    }
 	/* READ - Display all artist albums*/
 
 	router.get('/', function(req, res) {
@@ -45,6 +57,19 @@ module.exports = (function() {
 			}
 		}
 	});
+	
+	router.get('/:album_id', function(req, res){
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["updateAlbum.js"];
+        var mysql = req.app.get('mysql');
+        getAlbum(res, mysql, context, req.params.album_id, complete);
+        function complete(){
+                res.render('update-album', context);
+            }
+
+        
+    });
 
 	/* CREATE - Adds an album */
 
