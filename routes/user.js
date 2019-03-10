@@ -92,6 +92,24 @@ module.exports = (function() {
 		});
 	});
 	
+	router.put('/:id', function(req, res){
+        var mysql = req.app.get('mysql');
+        console.log(req.body)
+        console.log(req.params.id)
+        var sql = "UPDATE user SET user_name=?, sid=?, WHERE character_id=?";
+        var inserts = [req.body.user_name, req.body.sid, req.params.id];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.status(200);
+                res.end();
+            }
+        });
+    });
+	
 	 router.delete('/:user_id', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM user WHERE user_id = ?";
