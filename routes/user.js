@@ -14,6 +14,19 @@ module.exports = (function() {
 			complete();
 		});
 	}
+	
+	function getUser(res, mysql, context, id, complete){
+        var sql = "SELECT user.user_name,  user.user_id  FROM artist WHERE user_id = ?";
+        var inserts = [id]; // this needs to be the artist id from the req
+        mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.user = results[0];
+            complete();
+        });
+    }
 
 	function getSongsForDropdown(req, res, mysql, context, complete) {
 		var sql =
@@ -44,6 +57,19 @@ module.exports = (function() {
 			}
 		}
 	});
+	
+	router.get('/:user_id', function(req, res){
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["updateUser.js"];
+        var mysql = req.app.get('mysql');
+        getUser(res, mysql, context, req.params.user_id, complete);
+        function complete(){
+                res.render('update-user', context);
+            }
+
+        
+    });
 
 	/* CREATE Adds a user */
 
@@ -62,6 +88,25 @@ module.exports = (function() {
 			}
 		});
 	});
+	
+	router.put('/:user_id', function(req, res){
+        var mysql = req.app.get('mysql');
+//        console.log(req.body)
+        console.log(req.params.user_id);
+        var sql="UPDATE artist SET user_name = ? WHERE user_id=?";
+	var inserts = [req.body.user_name, req.params.artist_id];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.status(200);
+                res.end();
+
+            }
+        });
+    });
 	
 	 router.delete('/:user_id', function(req, res){
         var mysql = req.app.get('mysql');
