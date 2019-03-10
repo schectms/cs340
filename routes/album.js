@@ -30,7 +30,7 @@ module.exports = (function() {
 	}
 
 	function getAlbum(res, mysql, context, id, complete){
-        var sql = "SELECT album.album_name, , album.album_id  FROM album WHERE album_id = ?";
+        var sql = "SELECT album.album_name,  album.album_id  FROM album WHERE album_id = ?";
         var inserts = [id]; // this needs to be the artist id from the req
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
