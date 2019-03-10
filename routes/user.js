@@ -66,6 +66,8 @@ module.exports = (function() {
         getUser(res, mysql, context, req.params.user_id, complete);
 	getSongsForDropdown(req, res, mysql, context, complete);
         function complete(){
+            callbackCount++;
+            if(callbackCount >= 2){
                 res.render('update-user', context);
             }
 
