@@ -88,10 +88,10 @@ module.exports = (function() {
 		});
 	});
 	
-	router.put('/:id', function(req, res){
+	router.put('/:user_id', function(req, res){
         var mysql = req.app.get('mysql');
         console.log(req.body)
-        console.log(req.params.id)
+        console.log(req.params.user_id)
         var sql = "UPDATE user SET user_name=?, sid=?, WHERE character_id=?";
         var inserts = [req.body.user_name, req.body.sid, req.params.id];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
