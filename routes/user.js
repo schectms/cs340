@@ -16,7 +16,7 @@ module.exports = (function() {
 	}
 	
 	function getUser(res, mysql, context, id, complete){
-        var sql = "SELECT user.user_name, user.sid,  user.user_id  FROM user WHERE user_id = ?";
+        var sql = "SELECT user.user_name, user.sid,  user.user_id  FROM user WHERE user.user_id = ?";
         var inserts = [id]; // this needs to be the artist id from the req
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
@@ -40,6 +40,8 @@ module.exports = (function() {
 			complete();
 		});
 	}
+	
+	
 
 	/* READ - Display all users*/
 
