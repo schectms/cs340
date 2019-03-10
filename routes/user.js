@@ -16,7 +16,7 @@ module.exports = (function() {
 	}
 	
 	function getUser(res, mysql, context, id, complete){
-        var sql = "SELECT user.user_id, user.user_name FROM user WHERE character_id = ?";
+        var sql = "SELECT user.user_id, user.user_name FROM user WHERE user.user_id = ?";
         var inserts = [id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
@@ -45,68 +45,7 @@ module.exports = (function() {
 
 	router.get('/', function(req, res) {
 		let count = 0;
-		var context = { title: 'Users', users: {}, dropdown_songs: {} };
-		context.jsscripts = ["deleteUser.js"];
-		var mysql = req.app.get('mysql');
-		getUsers(req, res, mysql, context, complete);
-		getSongsForDropdown(req, res, mysql, context, complete);
-		function complete() {
-			count++;
-			if (count >= 2) {
-				res.render('users', context);
-			}
-		}
-	});
-	
-	router.get('/:user_id', function(req, res){
-        callbackCount = 0;
-        var context = {};
-        context.jsscripts = ["selectedSong.js", "updateUser.js"];
-        var mysql = req.app.get('mysql');
-        getUser(res, mysql, context, req.params.user_id, complete);
-        getSongsForDropdown(res, mysql, context, complete);
-        function complete(){
-                res.render('update-user', context);
-            }
-    });
-
-	/* CREATE Adds a user */
-
-	router.post('/', function(req, res) {
-		console.log(req.body);
-		var mysql = req.app.get('mysql');
-		var sql = 'INSERT INTO user (user_name, sid) VALUES (?, ?)';
-		var inserts = [ req.body.user_name, req.body.fav_song ];
-		sql = mysql.pool.query(sql, inserts, function(error, results, fields) {
-			if (error) {
-				console.log(JSON.stringify(error));
-				res.write(JSON.stringify(error));
-				res.end();
-			} else {
-				res.redirect('/users');
-			}
-		});
-	});
-	
-	router.put('/:user_id', function(req, res){
-        var mysql = req.app.get('mysql');
-        console.log(req.body)
-        console.log(req.params.user_id)
-        var sql = "UPDATE user SET user_name=?, sid=?, WHERE character_id=?";
-        var inserts = [req.body.user_name, req.body.sid, req.params.id];
-        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
-            if(error){
-                console.log(error)
-                res.write(JSON.stringify(error));
-                res.end();
-            }else{
-                res.status(200);
-                res.end();
-            }
-        });
-    });
-	
-	 router.delete('/:user_id', function(req, res){
+		router.delete('/:user_id', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM user WHERE user_id = ?";
         var inserts = [req.params.user_id];
