@@ -1,6 +1,6 @@
 <html>
 <h1>Update {{album_name}}:</h1>
-<form id="update-album" action="/albums" method="post">
+<form id="update-album" action="/albums/{{album.album_id}}" method="post">
     Name: <input type="text" name="album_name" value="{{album.album_name}}"><br>
 </form>
 <button onclick="updateAlbum({{album.album_id}})">Update</button>
