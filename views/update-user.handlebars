@@ -1,10 +1,10 @@
 <html>
-<h1>Update {{user_name}}:</h1>
+<h1>Update {{user.user_name}}:</h1>
 <form id="update-user" action="/users/{{user.user_id}}" method="post">
     User name: <input type="text" name="user_name" value="{{user.user_name}}"><br>
     Favorite Song: <select name="song" id="song-selector"> 
       {{#each dropdown_songs}}
-              <option value="{{song_id}}">{{song_name}} - {{artist_name}}</option>
+              <option value="{{song_id}}">{{song_name}}</option>
                    {{/each}}
     </select><br>
 </form>
