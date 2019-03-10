@@ -61,7 +61,7 @@ module.exports = (function() {
 	router.get('/:user_id', function(req, res){
         let count = 0;
         var context = {};
-        context.jsscripts = ["updateUser.js", "selectedsong.js"];
+        context.jsscripts = ["updateUser.js", "selectedSong.js"];
         var mysql = req.app.get('mysql');
         getUser(res, mysql, context, req.params.user_id, complete);
         getSongsForDropdown(req, res, mysql, context, complete);
