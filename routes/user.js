@@ -16,7 +16,7 @@ module.exports = (function() {
 	}
 	
 	function getUser(res, mysql, context, id, complete){
-        var sql = "SELECT user.user_name,  user.user_id  FROM artist WHERE user_id = ?";
+        var sql = "SELECT user.user_name,  user.user_id  FROM user WHERE user_id = ?";
         var inserts = [id]; // this needs to be the artist id from the req
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
@@ -93,8 +93,8 @@ module.exports = (function() {
         var mysql = req.app.get('mysql');
 //        console.log(req.body)
         console.log(req.params.user_id);
-        var sql="UPDATE artist SET user_name = ? WHERE user_id=?";
-	var inserts = [req.body.user_name, req.params.artist_id];
+        var sql="UPDATE user SET user_name = ? WHERE user_id=?";
+	var inserts = [req.body.user_name, req.params.user_id];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log(error)
