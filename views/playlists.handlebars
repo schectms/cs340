@@ -57,13 +57,13 @@
 				<h3>Create New Playlist</h3>
 			  <div class="row">
 			    <div class="col">
-			      <input type="text" class="form-control" placeholder="Playlist Name" name="playlist_name">
+			      <input type="text" class="form-control" placeholder="Playlist Name" name="playlist_name" required>
 			    </div>
 			    
 			  </div>
               <div class="row">
 			    <div class="col">
-					    <select class="form-control" id="user_created" name="user_created">
+					    <select class="form-control" id="user_created" name="user_created" required>
                             <option selected=true disabled="disabled">User</option>
                             {{#each users_dropdown}}
                             <option value="{{user_id}}">{{user_name}}</option>

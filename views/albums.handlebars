@@ -58,7 +58,7 @@
 			<form id="add_album" action="/albums?artist_id={{artist.artist_id}}" method="post">
 				<h3>Create New Album for {{artist.artist_name}}</h3>
 				<div>
-				      <input type="text" class="form-control" name="album_name" placeholder="Album name">
+				      <input type="text" class="form-control" name="album_name" placeholder="Album name" required>
 			    </div>
 			    <button class="mt-1 btn btn-primary" type="submit">Submit</button>
 			</form>
