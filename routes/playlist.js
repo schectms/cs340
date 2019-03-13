@@ -15,6 +15,19 @@ module.exports = (function() {
 			}
 		);
 	}
+	
+	function getPlaylist(res, mysql, context, id, complete) {
+		var sql = 'SELECT playlist.playlist_name, playlist.uid,  playlist.playlist_id  FROM playlist WHERE playlist.playlist_id = ?';
+		var inserts = [ id ]; // this needs to be the artist id from the req
+		mysql.pool.query(sql, inserts, function(error, results, fields) {
+			if (error) {
+				res.write(JSON.stringify(error));
+				res.end();
+			}
+			context.playlist = results[0];
+			complete();
+		});
+	}
 
 	function getUsersPlaylists(req, res, mysql, context, complete) {
 		var sql =
@@ -58,6 +71,21 @@ module.exports = (function() {
 			}
 		}
 	});
+	
+	router.get('/:playlist_id', function(req, res) {
+		let count = 0;
+		var context = {};
+		context.jsscripts = [ 'updatePlaylist.js', 'selectedPlaylist.js' ];
+		var mysql = req.app.get('mysql');
+		getPlaylist(res, mysql, context, req.params.playlist_id, complete);
+		getUsersForDropDown(req, res, mysql, context, complete);
+		function complete() {
+			count++;
+			if (count >= 2) {
+				res.render('update-playlist', context);
+			}
+		}
+	});
 
 	/* CREATE - Adds a playlist */
 
@@ -72,6 +100,23 @@ module.exports = (function() {
 				res.end();
 			} else {
 				res.redirect('/playlists');
+			}
+		});
+	});
+	
+	router.put('/:playlist_id', function(req, res) {
+		var mysql = req.app.get('mysql');
+		console.log(req.params.playlist_id);
+		var sql = 'UPDATE playlist SET playlist_name = ?, uid=? WHERE playlist_id=?';
+		var inserts = [ req.body.playlist_name, req.body.playlist, req.params.playlist_id ];
+		sql = mysql.pool.query(sql, inserts, function(error, results, fields) {
+			if (error) {
+				console.log(error);
+				res.write(JSON.stringify(error));
+				res.end();
+			} else {
+				res.status(200);
+				res.end();
 			}
 		});
 	});
