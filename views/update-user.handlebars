@@ -3,7 +3,7 @@
 <form id="update-user" action="/users/{{user.user_id}}" method="post">
     User name: <input type="text" name="user_name" value="{{user.user_name}}"><br>
     Favorite Song: <select name="song" id="song-selector"> 
-    <option value=NULL">NULL</option>
+    <option value=NULL>NULL</option>
       {{#each dropdown_songs}}
               <option value="{{song_id}}">{{song_name}}</option>
                    {{/each}}
