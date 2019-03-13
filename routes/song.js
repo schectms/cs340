@@ -154,7 +154,7 @@ module.exports = (function() {
 
 	router.delete('/:song_id', function(req, res) {
 		var mysql = req.app.get('mysql');
-		var sql = 'DELETE FROM song WHERE song_id = ?';
+		var sql = 'DELETE FROM song_playlist WHERE song_id = ?';
 		var inserts = [ req.params.song_id ];
 		sql = mysql.pool.query(sql, inserts, function(error, results, fields) {
 			if (error) {
