@@ -97,7 +97,7 @@ module.exports = (function() {
 		var sql = 'UPDATE user SET user_name = ?, sid=? WHERE user_id=?';
 		if(req.body.song=="NULL")
 		{
-			req.body.song=NULL;
+			req.body.song=null;
 		}
 		var inserts = [ req.body.user_name, req.body.song, req.params.user_id ];
 		sql = mysql.pool.query(sql, inserts, function(error, results, fields) {
