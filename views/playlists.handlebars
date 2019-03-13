@@ -42,9 +42,9 @@
 					  	<a href="/songs?type=playlist&playlist_id={{playlist_id}}" role="button" class="btn btn-primary btn-sm">
 						  	View playlist songs
 						</a>
-						<button type="button" class="btn btn-info btn-sm">
-						  	Edit playlist
-						</button>
+						<a href="/playlists/{{playlist_id}}?=playlist_id" role="button" class="btn btn-secondary btn-sm">
+                                Edit Playlist
+                       </a>
 							 <button onclick="deletePlaylist({{playlist_id}})"  type="button" class="btn btn-danger btn-sm" >Delete</button>
 					</div>
 				</div>
