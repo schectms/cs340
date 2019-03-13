@@ -1,0 +1,13 @@
+<html>
+<h1>Update {{playlist.playlist_name}}:</h1>
+<form id="update-playlist" action="/playlists/{{playlist.playlist_id}}" method="post">
+    Playlist name: <input type="text" name="playlist_name" value="{{playlist.playlist_name}}"><br>
+    User: <select name="playlist" id="playlist-selector"> 
+      {{#each users_dropdown}}
+      <option value="{{user_id}}">{{user_name}}</option>
+                   {{/each}}
+    </select><br>
+</form>
+<button onclick="updatePlaylist({{playlist.playlist_id}})">Update</button>
+<script defer>selectPlaylist({{playlist.uid}});</script>
+</html>
