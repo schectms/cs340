@@ -4,7 +4,7 @@ module.exports = (function() {
 
 	function getSongsByPlaylist(req, res, mysql, context, complete) {
 		var sql =
-			"SELECT song.song_name, artist.artist_name, playlist.playlist_name, user.user_name, 'true' AS chks, 'playlist' AS type FROM song_playlist INNER JOIN song ON song_playlist.sid = song.song_id INNER JOIN artist ON song.aid = artist.artist_id INNER JOIN playlist ON song_playlist.pid = playlist.playlist_id  INNER JOIN user ON playlist.uid = user.user_id WHERE song_playlist.pid = ?";
+			"SELECT song.song_name, song_playlist.sid, artist.artist_name, playlist.playlist_name, user.user_name, 'true' AS chks, 'playlist' AS type FROM song_playlist INNER JOIN song ON song_playlist.sid = song.song_id INNER JOIN artist ON song.aid = artist.artist_id INNER JOIN playlist ON song_playlist.pid = playlist.playlist_id  INNER JOIN user ON playlist.uid = user.user_id WHERE song_playlist.pid = ?";
 		var inserts = [ req.query.playlist_id ];
 		mysql.pool.query(sql, inserts, function(error, results, fields) {
 			if (error) {
@@ -154,7 +154,7 @@ module.exports = (function() {
 
 	router.delete('/:song_id', function(req, res) {
 		var mysql = req.app.get('mysql');
-		var sql = 'DELETE FROM song_playlist WHERE song_id = ?';
+		var sql = 'DELETE FROM song_playlist WHERE sid = ?';
 		var inserts = [ req.params.song_id ];
 		sql = mysql.pool.query(sql, inserts, function(error, results, fields) {
 			if (error) {

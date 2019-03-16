@@ -38,20 +38,17 @@
 			  <li class="list-group-item">
                   {{#if chks}}
 			  	    {{song_name}} - {{artist_name}}
+							<div class="btn-group float-right">
+							 <button onclick="deleteSong({{sid}})"  type="button" class="btn btn-danger btn-sm" >Delete</button>
+							</div>
                   {{else}}
                     {{song_name}}
                   {{/if}}
 			  	<div class="mt-1">
-				  	<div class="btn-group float-right">
-						
-							 <button onclick="deleteSong({{song_id}})"  type="button" class="btn btn-danger btn-sm" >Delete</button>
-					</div>
-				</div>
 			  </li>
               {{/each}}
-
 			</ul>
-        </div>
+    </div>
 
 		
 		<div class="container mt-5">
